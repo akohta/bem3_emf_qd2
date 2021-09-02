@@ -1,0 +1,6 @@
+## plane wave data
+# number of wave
+1
+# lambda ni power real(e0x) imag(e0x) real(e0y) imag(e0y) fx fy fz theta phi
+1.0 1.33 1.0e-3 1.0 0.0 0.0 0.0 0.0 0.0 0.0 +0.2 +0.0
+

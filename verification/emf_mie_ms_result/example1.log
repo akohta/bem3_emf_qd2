@@ -1,0 +1,299 @@
+./example1.out veri.dat 
+
+ "ipw.txt" No.00 -- plane wave --
+wave length of incident beam in vacuum      :               1
+refractive index of surrounding             :            1.33
+incident beam power per unit area           :           0.001
+x-component of polarization coefficient     :      1+      0i
+y-component of polarization coefficient     :      0+      0i
+x-component of translation vector           :               0
+y-component of translation vector           :               0
+z-component of translation vector           :               0
+rotation parameter theta               [rad]:             0.2
+rotation parameter phi                 [rad]:               0
+
+---- sphere data ( msphr.txt ) ----
+number of spheres                             :               19
+  Sphere ID 0
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                0
+y-coordinate of sphere center                 :                0
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 1
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                2
+y-coordinate of sphere center                 :                0
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 2
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -2
+y-coordinate of sphere center                 :                0
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 3
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                1
+y-coordinate of sphere center                 : 1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 4
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -1
+y-coordinate of sphere center                 : 1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 5
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                1
+y-coordinate of sphere center                 : -1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 6
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -1
+y-coordinate of sphere center                 : -1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 7
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                4
+y-coordinate of sphere center                 :                0
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 8
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -4
+y-coordinate of sphere center                 :                0
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 9
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                3
+y-coordinate of sphere center                 : 1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 10
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -3
+y-coordinate of sphere center                 : 1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 11
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                3
+y-coordinate of sphere center                 : -1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 12
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -3
+y-coordinate of sphere center                 : -1.73205080756888
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 13
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                0
+y-coordinate of sphere center                 : 3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 14
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                2
+y-coordinate of sphere center                 : 3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 15
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -2
+y-coordinate of sphere center                 : 3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 16
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                0
+y-coordinate of sphere center                 : -3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 17
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :                2
+y-coordinate of sphere center                 : -3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+  Sphere ID 18
+radius of sphere                              :            0.125
+refractive index of sphere                    :     1.6+      0i
+x-coordinate of sphere center                 :               -2
+y-coordinate of sphere center                 : -3.46410161513775
+z-coordinate of sphere center                 :                0
+basic sampling number on sphere surface       :               32
+division number for sphere surface    (per PI):                4
+limit of order number l                       :               40
+
+Electromagnetic field at r=(  0.3, 0, 1.1 )
+Ex = -3.73587903827679e-02 -2.93780554425609e-03 I (=-2.29302130302917e+04 -1.80317687701250e+03 I [V/m](MKSA))
+Ey =  1.69406589450860e-19 -8.80914265144472e-20 I (= 1.03978987141810e-13 -5.40690733137411e-14 I [V/m](MKSA))
+Ez =  7.45714529014752e-03 +8.86950517734303e-04 I (= 4.57707351734256e+03 +5.44395686011188e+02 I [V/m](MKSA))
+Hx = -1.27054942088145e-19 -1.35525271560688e-20 I (=-2.07002828202915e-16 -2.20803016749776e-17 I [A/m](MKSA))
+Hy = -5.14133445250485e-02 -4.07844201362255e-03 I (=-8.37646104050992e+01 -6.64475554910535e+00 I [A/m](MKSA))
+Hz =  9.48676900924816e-20 +5.42101086242752e-20 I (= 1.54562111724843e-16 +8.83212066999105e-17 I [A/m](MKSA))
+Real electromagnetic field at t=0.001
+Ex = -3.73765116074074e-02 (=-2.29410900274315e+04 [V/m](MKSA))
+Ey =  1.68849754394898e-19 (= 1.03637210913909e-13 [V/m](MKSA))
+Ez =  7.46257093027708e-03 (= 4.58040368629937e+03 [V/m](MKSA))
+Hx = -1.27137586611583e-19 (=-2.07137475858536e-16 [A/m](MKSA))
+Hy = -5.14379551079712e-02 (=-8.38047069191348e+01 [A/m](MKSA))
+Hz =  9.52064274023739e-20 (= 1.55113995657992e-16 [A/m](MSKA))
+
+Radiation force and torque
+Mie coefficient
+sphere id  0, F=(  3.48363852231e-07,-1.1014095050961e-20, 1.6626861583574e-06 )
+           0, N=(  9.8631135856618e-24, 1.0067780544673e-22, 2.7676716984725e-23 )
+           0, F=(  1.1620167316918e-18,-3.6739066501003e-32, 5.5461240401099e-18 ) [ N ](MKSA)
+           0, N=(  3.2899805590379e-41, 3.3582501080373e-40, 9.2319590590653e-41 ) [N m](MKSA)
+Mie coefficient
+sphere id  1, F=(  4.0367017947285e-07,-9.7276886659539e-21, 1.7128195188871e-06 )
+           1, N=( -8.9887835514128e-24, 1.4986901067065e-23,-1.7570438404228e-25 )
+           1, F=(  1.3464987817434e-18,-3.2448076682282e-32, 5.7133509305532e-18 ) [ N ](MKSA)
+           1, N=( -2.998335452259e-41, 4.9990920942599e-41,-5.8608673885413e-43 ) [N m](MKSA)
+Mie coefficient
+sphere id  2, F=(  3.1302050587265e-07,-1.0128656684738e-20, 1.9614326746693e-06 )
+           2, N=( -1.0360601166117e-23,-7.2576366153704e-23,-8.2707384783222e-23 )
+           2, F=(  1.0441240181988e-18,-3.3785562026173e-32, 6.5426351541815e-18 ) [ N ](MKSA)
+           2, N=( -3.4559245536846e-41,-2.420886990883e-40,-2.7588213971421e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id  3, F=(  3.7597816051117e-07, 1.771650611527e-07, 1.915352053948e-06 )
+           3, N=( -3.0345186313418e-23, 2.8944079011247e-23,-8.7413419573314e-23 )
+           3, F=(  1.2541281492517e-18, 5.9095903324125e-19, 6.388926748611e-18 ) [ N ](MKSA)
+           3, N=( -1.0122064616255e-40, 9.6547055267303e-41,-2.9157978208149e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id  4, F=(  3.85012586007e-07, 2.873230553071e-07, 1.9040254816618e-06 )
+           4, N=( -2.9201769572381e-24, 8.3595450101541e-23,-5.6120352838433e-23 )
+           4, F=(  1.2842637489133e-18, 9.5840654973083e-19, 6.3511453702473e-18 ) [ N ](MKSA)
+           4, N=( -9.7406618455961e-42, 2.7884440675803e-40,-1.8719734716753e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id  5, F=(  3.7597816051117e-07,-1.7716506115272e-07, 1.915352053948e-06 )
+           5, N=( -1.0541035834224e-23, 8.0603593753613e-23, 4.2159881830935e-24 )
+           5, F=(  1.2541281492517e-18,-5.9095903324132e-19, 6.388926748611e-18 ) [ N ](MKSA)
+           5, N=( -3.5161110804944e-41, 2.6886464820143e-40, 1.4063022836597e-41 ) [N m](MKSA)
+Mie coefficient
+sphere id  6, F=(  3.85012586007e-07,-2.8732305530712e-07, 1.9040254816618e-06 )
+           6, N=(  9.8465450012171e-25,-1.9730230515595e-23, 1.1730637469212e-24 )
+           6, F=(  1.2842637489133e-18,-9.5840654973089e-19, 6.3511453702473e-18 ) [ N ](MKSA)
+           6, N=(  3.2844538741589e-42,-6.5812964899854e-41, 3.9129194735154e-42 ) [N m](MKSA)
+Mie coefficient
+sphere id  7, F=(  5.3240714642298e-07,-1.2218025248065e-20, 1.9566365208825e-06 )
+           7, N=( -1.1445676999177e-23, 1.0444545433835e-22,-7.1659747560293e-23 )
+           7, F=(  1.7759190807361e-18,-4.075494536979e-32, 6.5266369071983e-18 ) [ N ](MKSA)
+           7, N=( -3.8178668921609e-41, 3.4839253473933e-40,-2.3903118857077e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id  8, F=(  3.6783252412476e-07,-1.1837092346018e-20, 1.9813492678815e-06 )
+           8, N=(  4.2175679400123e-23, 1.3806746538792e-24, 1.8252213304798e-22 )
+           8, F=(  1.2269572309413e-18,-3.9484289981764e-32, 6.6090697581241e-18 ) [ N ](MKSA)
+           8, N=(  1.4068292338469e-40, 4.6054349168422e-42, 6.0882830163787e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id  9, F=(  4.0238721744432e-07, 2.4163829054858e-07, 1.9315406762015e-06 )
+           9, N=( -5.3209539259086e-24,-1.2009452691408e-22,-4.1561660112794e-23 )
+           9, F=(  1.3422192810612e-18, 8.0601857752065e-19, 6.4429261799556e-18 ) [ N ](MKSA)
+           9, N=( -1.7748791818868e-41,-4.0059222208344e-40,-1.3863477550457e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id 10, F=(  3.372202538987e-07, 3.6764829174177e-08, 2.0133047844598e-06 )
+          10, N=(  1.6535741851302e-23,-7.5489143071596e-23,-4.195045509001e-23 )
+          10, F=(  1.1248456887421e-18, 1.2263426978599e-19, 6.7156618878643e-18 ) [ N ](MKSA)
+          10, N=(  5.5157297690596e-41,-2.5180467705961e-40,-1.399316559525e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id 11, F=(  4.0238721744432e-07,-2.416382905486e-07, 1.9315406762014e-06 )
+          11, N=( -8.1747573685783e-24,-2.9163340930952e-23, 9.8571217477968e-23 )
+          11, F=(  1.3422192810612e-18,-8.0601857752073e-19, 6.4429261799556e-18 ) [ N ](MKSA)
+          11, N=( -2.7268055451142e-41,-9.7278434305883e-41, 3.2879818970619e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id 12, F=(  3.372202538987e-07,-3.6764829174197e-08, 2.0133047844598e-06 )
+          12, N=(  1.3355995662252e-23,-1.1242219404957e-23, 2.6450381235528e-23 )
+          12, F=(  1.1248456887421e-18,-1.2263426978606e-19, 6.7156618878643e-18 ) [ N ](MKSA)
+          12, N=(  4.4550806085495e-41,-3.7500007438336e-41, 8.8228974844751e-41 ) [N m](MKSA)
+Mie coefficient
+sphere id 13, F=(  4.1693414635071e-07, 6.7749826817499e-08, 2.0433255618737e-06 )
+          13, N=(  1.9915784379618e-23,-8.7438358976389e-24,-2.7338704550864e-23 )
+          13, F=(  1.3907426128469e-18, 2.259890968221e-19, 6.8158004224164e-18 ) [ N ](MKSA)
+          13, N=(  6.6431905967487e-41,-2.916629709757e-41,-9.1192102473987e-41 ) [N m](MKSA)
+Mie coefficient
+sphere id 14, F=(  3.920851093969e-07, 9.1941816048016e-08, 1.987833625934e-06 )
+          14, N=( -7.4454110038618e-24,-1.5581372162919e-22, 2.042008263936e-24 )
+          14, F=(  1.3078551475664e-18, 3.0668488680931e-19, 6.6306992483912e-18 ) [ N ](MKSA)
+          14, N=( -2.4835217848815e-41,-5.1973863074697e-40, 6.8114063894696e-42 ) [N m](MKSA)
+Mie coefficient
+sphere id 15, F=(  3.6334944251842e-07, 1.7111654905184e-07, 1.9333337884985e-06 )
+          15, N=( -2.5386665880832e-23,-8.3739242940415e-23,-8.1737444309133e-23 )
+          15, F=(  1.2120032803441e-18, 5.7078336857908e-19, 6.4489073587653e-18 ) [ N ](MKSA)
+          15, N=( -8.4680802346377e-41,-2.7932404803998e-40,-2.7264676654785e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id 16, F=(  4.1693414635071e-07,-6.774982681752e-08, 2.0433255618737e-06 )
+          16, N=( -3.6735040146257e-25, 2.5005305395445e-23,-1.5019212960608e-25 )
+          16, F=(  1.3907426128469e-18,-2.2598909682217e-19, 6.8158004224164e-18 ) [ N ](MKSA)
+          16, N=( -1.2253490428454e-42, 8.3408720693852e-41,-5.0098701817937e-43 ) [N m](MKSA)
+Mie coefficient
+sphere id 17, F=(  3.920851093969e-07,-9.1941816048037e-08, 1.987833625934e-06 )
+          17, N=(  2.5479511039819e-23,-8.8830338022039e-23, 1.6470112815528e-22 )
+          17, F=(  1.3078551475665e-18,-3.0668488680938e-19, 6.6306992483912e-18 ) [ N ](MKSA)
+          17, N=(  8.4990500460885e-41,-2.9630611328467e-40, 5.4938382791231e-40 ) [N m](MKSA)
+Mie coefficient
+sphere id 18, F=(  3.6334944251842e-07,-1.7111654905186e-07, 1.9333337884985e-06 )
+          18, N=( -3.6415700517842e-24,-1.4932201767961e-22,-6.1383421683467e-24 )
+          18, F=(  1.2120032803441e-18,-5.7078336857914e-19, 6.4489073587653e-18 ) [ N ](MKSA)
+          18, N=( -1.2146970194241e-41,-4.9808463720463e-40,-2.0475305514012e-41 ) [N m](MKSA)

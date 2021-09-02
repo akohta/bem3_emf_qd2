@@ -1,0 +1,43 @@
+../d3qd2_bv_solver ipw.txt periodicity_data.txt medium_data.txt cone_m1.msh ex2.dat 1 0 0 3.1415926535 0 0 0
+
+-- plane wave data --
+ "ipw.txt" No.00 -- plane wave parameter --
+wave length of incident beam in vacuum      :               1
+refractive index of surrounding             :            1.33
+incident beam power per unit area           :           0.001
+x-poralization coefficient                  :      1+      0i
+y-poralization coefficient                  :      0+      0i
+x-component of translation vector           :               0
+y-component of translation vector           :               0
+z-component of translation vector           :               0
+rotation parameter theta               [rad]:             0.2
+rotation parameter phi                 [rad]:               0
+
+-- periodicity data --
+periodicity data file name : periodicity_data.txt
+periodicity setting        :                 1
+lattice vector d1          : (   0.75,      0)
+lattice vector d2          : (  0.375, 0.649519)
+
+-- medium data --
+medium data file name                  : medium_data.txt
+medium (domain) id  1 refractive index :    0.06 +        4I
+
+-- mesh data --
+mesh data file name    : cone_m1.msh
+node number            :      569
+defined element number :     1162
+
+-- rotation and translation settings --
+vector defining rotation axis :(       1,       0,       0)
+rotation angle           [rad]: 3.141593
+
+
+solve modified electromagnetic potential boundary value 
+  coefficient matrix          finished. Elapsed time :  6967 (sec)
+  solve mEMP boundary value   finished. Elapsed time :    36 (sec)
+solve electromagnteic field boundary value 
+  solve EH boundary value     finished. Elapsed time :     3 (sec)
+Total elapsed time : 7006 (sec)
+
+output datafile : ex2.dat
