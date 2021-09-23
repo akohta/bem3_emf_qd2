@@ -21,6 +21,7 @@ typedef struct ipw_data{
 
   double n_0;
   double lambda_0;
+  double omega;
 
   BOBJ bd;
 }MIPW;
