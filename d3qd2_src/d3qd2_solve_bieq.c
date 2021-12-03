@@ -305,8 +305,14 @@ void create_matrix_csr_dac(int did,int cid,FILE *av,FILE *ap,FILE *ai,FILE *b,CM
     td=md->bd.sb[did].sid[t];
 
     for(tn=0;tn<4;tn++){
-      fread(tG,sizeof(double complex),Ne*4,fg);
-      fread(tH,sizeof(double complex),Ne*4,fh);
+      if(fread(tG,sizeof(double complex),Ne*4,fg)!=Ne*4){
+        printf("d3qd2_solve_bieq.c, create_matrix_csr(), failed to read the tG. exit...\n");
+        exit(1);
+      }
+      if(fread(tH,sizeof(double complex),Ne*4,fh)!=Ne*4){
+        printf("d3qd2_solve_bieq.c, create_matrix_csr(), failed to read the tH. exit...\n");
+        exit(1);
+      }
       if( tn==3 && ELT3==check_element_type(td,&(md->bd)) )  continue;
 
       fwrite(&(cm->nnz),sizeof(size_t),1,ap); // write A pointer
@@ -566,9 +572,18 @@ void solve_eh_bv(CMD *cm,DQD2 *md)
       atd=abs(at);
 
       for(tn=0;tn<4;tn++){
-        fread(tdG,sizeof(double complex),2*Ne*4,fdg);
-        fread(tdH,sizeof(double complex),2*Ne*4,fdh);
-        fread(tdF,sizeof(double),3,fdf);
+        if(fread(tdG,sizeof(double complex),2*Ne*4,fdg)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, solve_eh_bv(), failed to read the tdG. exit...\n");
+          exit(1);
+        }
+        if(fread(tdH,sizeof(double complex),2*Ne*4,fdh)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, solve_eh_bv(), failed to read the tdH. exit...\n");
+          exit(1);
+        }
+        if(fread(tdF,sizeof(double),3,fdf)!=3){
+          printf("d3qd2_solve_bieq.c, solve_eh_bv(), failed to read the tdF. exit...\n");
+          exit(1);
+        }
         if( tn==3 && ELT3==check_element_type(atd,&(md->bd)) )  continue;
 
         // tangential vector
@@ -582,16 +597,6 @@ void solve_eh_bv(CMD *cm,DQD2 *md)
         dudt_fcm(dUz,dUe,t,tn,Ne,md->bd.sb[d].U,md->bd.sb[d].dU,tdG,tdH,tdF);
         // electric field
         for(i=0;i<3;i++) md->bd.sb[d].E[t][tn][i]=-(md->bd.sb[d].dU[t][tn][3]*a[i*3+0]+dUz[3]*a[i*3+1]+dUe[3]*a[i*3+2])+md->bd.sb[d].U[t][tn][i];
-/*
-        // test E
-        printf("d=%zu,t=%zu,tn=%zu\n",d,t,tn);
-        for(i=0;i<3;i++) printf("E=%15.14e + %15.14e\n",creal(md->bd.sb[d].E[t][tn][i]),cimag(md->bd.sb[d].E[t][tn][i]));
-        double complex t0,t1;
-        t0=vn[0]*md->bd.sb[d].E[t][tn][0]+vn[1]*md->bd.sb[d].E[t][tn][1]+vn[2]*md->bd.sb[d].E[t][tn][2];
-        t1=-md->bd.sb[d].dU[t][tn][3]+vn[0]*md->bd.sb[d].U[t][tn][0]+vn[1]*md->bd.sb[d].U[t][tn][1]+vn[2]*md->bd.sb[d].U[t][tn][2];
-        printf("t0=%15.14e + %15.14e\n",creal(t0),cimag(t0));
-        printf("t1=%15.14e + %15.14e\n",creal(t1),cimag(t1));
-*/
         // magnetic field
         md->bd.sb[d].H[t][tn][0]=ch*( (md->bd.sb[d].dU[t][tn][2]*a[1*3+0]+dUz[2]*a[1*3+1]+dUe[2]*a[1*3+2])
                                      -(md->bd.sb[d].dU[t][tn][1]*a[2*3+0]+dUz[1]*a[2*3+1]+dUe[1]*a[2*3+2]) );
@@ -693,8 +698,14 @@ void solve_deh_bv(CMD *cm,DQD2 *md)
       atd=abs(md->bd.sb[d].sid[t]);
 
       for(tn=0;tn<4;tn++){
-        fread(tG,sizeof(double complex),Ne*4,fg);
-        fread(tH,sizeof(double complex),Ne*4,fh);
+        if(fread(tG,sizeof(double complex),Ne*4,fg)!=Ne*4){
+          printf("d3qd2_solve_bieq.c, solve_deh_bv(), failed to read the tdG. exit...\n");
+          exit(1);
+        }
+        if(fread(tH,sizeof(double complex),Ne*4,fh)!=Ne*4){
+          printf("d3qd2_solve_bieq.c, solve_deh_bv(), failed to read the tdG. exit...\n");
+          exit(1);
+        }
         if( tn==3 && ELT3==check_element_type(atd,&(md->bd)) )  continue;
 
         for(i=0;i<6;i++){
@@ -813,9 +824,18 @@ void q0_solve_eh_bv(CMD *cm,DQD2 *md)
       atd=abs(at);
 
       for(tn=0;tn<4;tn++){
-        fread(tdG,sizeof(double complex),2*Ne*4,fdg);
-        fread(tdH,sizeof(double complex),2*Ne*4,fdh);
-        fread(tdF,sizeof(double),3,fdf);
+        if(fread(tdG,sizeof(double complex),2*Ne*4,fdg)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, q0_solve_eh_bv(), failed to read the tdG. exit...\n");
+          exit(1);
+        }
+        if(fread(tdH,sizeof(double complex),2*Ne*4,fdh)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, q0_solve_eh_bv(), failed to read the tdH. exit...\n");
+          exit(1);
+        }
+        if(fread(tdF,sizeof(double),3,fdf)!=3){
+          printf("d3qd2_solve_bieq.c, q0_solve_eh_bv(), failed to read the tdF. exit...\n");
+          exit(1);
+        }
         if( tn==3 && ELT3==check_element_type(atd,&(md->bd)) )  continue;
 
         // tangential vector
@@ -829,7 +849,6 @@ void q0_solve_eh_bv(CMD *cm,DQD2 *md)
         dudt_fcm(dUz,dUe,t,tn,Ne,md->bd.sb[d].U,md->bd.sb[d].dU,tdG,tdH,tdF);
         // electric field
         for(i=0;i<3;i++) md->bd.sb[d].E[t][tn][i]=-(md->bd.sb[d].dU[t][tn][3]*a[i*3+0]+dUz[3]*a[i*3+1]+dUe[3]*a[i*3+2])+md->bd.sb[d].U[t][tn][i];
-
         // magnetic field
         md->bd.sb[d].H[t][tn][0]=ch*( (md->bd.sb[d].dU[t][tn][2]*a[1*3+0]+dUz[2]*a[1*3+1]+dUe[2]*a[1*3+2])
                                      -(md->bd.sb[d].dU[t][tn][1]*a[2*3+0]+dUz[1]*a[2*3+1]+dUe[1]*a[2*3+2]) );
@@ -938,9 +957,18 @@ void q1_solve_eh_bv(CMD *cm,DQD2 *md)
       atd=abs(at);
 
       for(tn=0;tn<4;tn++){
-        fread(tdG,sizeof(double complex),2*Ne*4,fdg);
-        fread(tdH,sizeof(double complex),2*Ne*4,fdh);
-        fread(tdF,sizeof(double),3,fdf);
+        if(fread(tdG,sizeof(double complex),2*Ne*4,fdg)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, q1_solve_eh_bv(), failed to read the tdG. exit...\n");
+          exit(1);
+        }
+        if(fread(tdH,sizeof(double complex),2*Ne*4,fdh)!=2*Ne*4){
+          printf("d3qd2_solve_bieq.c, q1_solve_eh_bv(), failed to read the tdH. exit...\n");
+          exit(1);
+        }
+        if(fread(tdF,sizeof(double),3,fdf)!=3){
+          printf("d3qd2_solve_bieq.c, q1_solve_eh_bv(), failed to read the tdF. exit...\n");
+          exit(1);
+        }
         if( tn==3 && ELT3==check_element_type(atd,&(md->bd)) )  continue;
 
         // tangential vector

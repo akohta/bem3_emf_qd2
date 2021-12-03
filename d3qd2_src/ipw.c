@@ -11,24 +11,79 @@ void read_data_ipw(char *rfile,Ipw *ipw)
   FILE *fp;
   if((fp=fopen(rfile,"rt"))==NULL){    printf("Can not open the file.\n");    exit(1);  }
   char buf[256]="";  int tmpi;  double tmpd,tmpd2;
-  fgets(buf,256,fp);  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("ipw.c, read_data_ipw(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("ipw.c, read_data_ipw(), failed to read the line. exit...\n");
+    exit(1);
+  }
 
   printf("-- wave parameter --\n");
-  fscanf(fp,"%d",&tmpi);
+  if(fscanf(fp,"%d",&tmpi)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the fp. exit...\n");
+    exit(1);
+  }
   if(tmpi!=0){ printf("beam type %d is not supported\n",tmpi); exit(1);}
-  else                                                printf("incident beam type                          : plane wave\n");
-  fscanf(fp,"%lf",&tmpd);  ipw->lambda0=tmpd;         printf("wave length of incident beam in vacuum      : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->ni     =tmpd;         printf("refractive index of surrounding             : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->power  =tmpd;         printf("incident beam power per unit area           : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);
-  fscanf(fp,"%lf",&tmpd2); ipw->e0x    =tmpd+I*tmpd2; printf("x-poralization coefficient                  :%7.6g+%7.6gi\n",tmpd,tmpd2);
-  fscanf(fp,"%lf",&tmpd);
-  fscanf(fp,"%lf",&tmpd2); ipw->e0y    =tmpd+I*tmpd2; printf("y-poralization coefficient                  :%7.6g+%7.6gi\n",tmpd,tmpd2);
-  fscanf(fp,"%lf",&tmpd);  ipw->fx     =tmpd;         printf("x-component of translation vector           : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->fy     =tmpd;         printf("y-comoonent of translation vector           : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->fz     =tmpd;         printf("z-component of translation vector           : %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->theta  =tmpd;         printf("rotation parameter theta               [rad]: %15.14g\n",tmpd);
-  fscanf(fp,"%lf",&tmpd);  ipw->phi    =tmpd;         printf("rotation parameter phi                 [rad]: %15.14g\n",tmpd);
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the lambda0. exit...\n");
+    exit(1);
+  }
+  ipw->lambda0=tmpd; 
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the ni. exit...\n");
+    exit(1);
+  }
+  ipw->ni     =tmpd; 
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the power. exit...\n");
+    exit(1);
+  }
+  ipw->power  =tmpd;
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the real(e0x). exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%lf",&tmpd2)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the imag(e0x). exit...\n");
+    exit(1);
+  }
+  ipw->e0x    =tmpd+I*tmpd2; 
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the real(e0y). exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%lf",&tmpd2)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the imag(e0y). exit...\n");
+    exit(1);
+  }
+  ipw->e0y    =tmpd+I*tmpd2;
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the fx. exit...\n");
+    exit(1);
+  }
+  ipw->fx     =tmpd; 
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the fy. exit...\n");
+    exit(1);
+  }
+  ipw->fy     =tmpd;
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the fz. exit...\n");
+    exit(1);
+  }
+  ipw->fz     =tmpd;
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the theta. exit...\n");
+    exit(1);
+  }
+  ipw->theta  =tmpd; 
+  if(fscanf(fp,"%lf",&tmpd)!=1){
+    printf("ipw.c, read_data_ipw(), failed to read the phi. exit...\n");
+    exit(1);
+  }
+  ipw->phi    =tmpd;
 
   fclose(fp);
 }

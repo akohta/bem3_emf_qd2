@@ -19,9 +19,23 @@ void read_data_mipw(char *fname,MIPW *obj)
     printf("read_data_mipw(), failed to read %s. Exit...\n",fname);
     exit(1);
   }
-  fgets(buf,256,fp);  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("m_ipw.c, read_data_mipw(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("m_ipw.c, read_data_mipw(), failed to read the line. exit...\n");
+    exit(1);
+  }
 
-  fscanf(fp,"%d\n",&nn);  fgets(buf,256,fp);
+  if(fscanf(fp,"%d\n",&nn)!=1){
+    printf("m_ipw.c, read_data_mipw(), failed to read the nn. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("m_ipw.c, read_data_mipw(), failed to read the line. exit...\n");
+    exit(1);
+  }
   if(nn==0) {
     printf("read_data_mpiw(), no wave defined. Exit...\n");
     exit(1);
@@ -29,18 +43,64 @@ void read_data_mipw(char *fname,MIPW *obj)
   obj->n_ipw=nn;     obj->bd.ipw=(Ipw *)malloc(sizeof(Ipw)*nn);
 
   for(i=0;i<nn;i++){
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].lambda0=tmpd;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].ni     =tmpd;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].power  =tmpd;
-    fscanf(fp,"%lf",&tmpd);
-    fscanf(fp,"%lf",&tmpd2); obj->bd.ipw[i].e0x    =tmpd+I*tmpd2;
-    fscanf(fp,"%lf",&tmpd);
-    fscanf(fp,"%lf",&tmpd2); obj->bd.ipw[i].e0y    =tmpd+I*tmpd2;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].fx     =tmpd;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].fy     =tmpd;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].fz     =tmpd;
-    fscanf(fp,"%lf",&tmpd);  obj->bd.ipw[i].theta  =tmpd;
-    fscanf(fp,"%lf\n",&tmpd);  obj->bd.ipw[i].phi    =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the lambda0. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].lambda0=tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the ni. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].ni     =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the power. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].power  =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the real(e0x). exit...\n");
+      exit(1);
+    }
+    if(fscanf(fp,"%lf",&tmpd2)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the imag(e0x). exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].e0x    =tmpd+I*tmpd2;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the real(e0y). exit...\n");
+      exit(1);
+    }
+    if(fscanf(fp,"%lf",&tmpd2)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the imag(e0y). exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].e0y    =tmpd+I*tmpd2;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the fx. exit...\n");
+      exit(1);  
+    }
+    obj->bd.ipw[i].fx     =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the fy. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].fy     =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the fz. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].fz     =tmpd;
+    if(fscanf(fp,"%lf",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the theta. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].theta  =tmpd;
+    if(fscanf(fp,"%lf\n",&tmpd)!=1){
+      printf("m_ipw.c, read_data_mipw(), failed to read the phi. exit...\n");
+      exit(1);
+    }
+    obj->bd.ipw[i].phi    =tmpd;
   }
   fclose(fp);
 }
@@ -91,6 +151,7 @@ void setup_mipw(MIPW *obj)
   int i;
 
   for(i=0;i<obj->n_ipw;i++)      setup_ipw(&(obj->bd.ipw[i]));
+  
 }
 
 void free_mipw(MIPW *obj)

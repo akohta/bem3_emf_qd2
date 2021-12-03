@@ -310,54 +310,202 @@ void dat_read(char *fname,DQD2 *qd)
   if((fp=fopen(fname,"rb"))==NULL){    printf("dat_read(), Failed to open the %s file.\n",fname);    exit(1);  }
 
   // fname
-  fread(qd->ped_fn,sizeof(char),128,fp);
-  fread(qd->med_fn,sizeof(char),128,fp);
-  fread(qd->msh_fn,sizeof(char),128,fp);
+  if(fread(qd->ped_fn,sizeof(char),128,fp)!=128){
+    printf("d3qd2_setup.c, dat_read(), failed to read the ped_fn. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->med_fn,sizeof(char),128,fp)!=128){
+    printf("d3qd2_setup.c, dat_read(), failed to read the med_fn. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->msh_fn,sizeof(char),128,fp)!=128){
+    printf("d3qd2_setup.c, dat_read(), failed to read the msh_fn. exit...\n");
+    exit(1);
+  }
   // rotation and translation data
-  fread(qd->rv,sizeof(double),3,fp);
-  fread(&(qd->th),sizeof(double),1,fp);
-  fread(qd->tv,sizeof(double),3,fp);
+  if(fread(qd->rv,sizeof(double),3,fp)!=3){
+    printf("d3qd2_setup.c, dat_read(), failed to read the rv. exit...\n");
+    exit(1);
+  }
+  if(fread(&(qd->th),sizeof(double),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the th. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->tv,sizeof(double),3,fp)!=3){
+    printf("d3qd2_setup.c, dat_read(), failed to read the tv. exit...\n");
+    exit(1);
+  }
   // material def
-  fread(&(qd->MN),sizeof(int),1,fp);
+  if(fread(&(qd->MN),sizeof(int),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the MN. exit...\n");
+    exit(1);
+  }
   qd->n =(double complex *)m_alloc2(qd->MN+1,sizeof(double complex),"dat_read(), qd->n"); // malloc
   qd->kn=(double complex *)m_alloc2(qd->MN+1,sizeof(double complex),"dat_read(), qd->kn"); // malloc
-  fread(qd->n,sizeof(double complex),qd->MN+1,fp);
-  fread(qd->kn,sizeof(double complex),qd->MN+1,fp);
+  if(fread(qd->n,sizeof(double complex),qd->MN+1,fp)!=qd->MN+1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the n. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->kn,sizeof(double complex),qd->MN+1,fp)!=qd->MN+1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the kn. exit...\n");
+    exit(1);
+  }
   // m_ipw
-  fread(&(qd->pw),sizeof(MIPW),1,fp);
+  if(fread(&(qd->pw),sizeof(MIPW),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the pw. exit...\n");
+    exit(1);
+  }
   qd->pw.bd.ipw=(Ipw *)malloc(sizeof(Ipw)*qd->pw.n_ipw); // malloc
-  fread(qd->pw.bd.ipw,sizeof(Ipw),qd->pw.n_ipw,fp);
+  if(fread(qd->pw.bd.ipw,sizeof(Ipw),qd->pw.n_ipw,fp)!=qd->pw.n_ipw){
+    printf("d3qd2_setup.c, dat_read(), failed to read the ipw. exit...\n");
+    exit(1);
+  }
   setup_mipw(&(qd->pw)); // setup
   // BOUD
-  fread(&(qd->bd.ps),sizeof(int),1,fp);
-  fread(&(qd->bd.qd),sizeof(QPD2),1,fp);
-  fread(&(qd->bd.Nn),sizeof(int),1,fp);
-  fread(&(qd->bd.Ne),sizeof(int),1,fp);
+  if(fread(&(qd->bd.ps),sizeof(int),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the ps. exit...\n");
+    exit(1);
+  }
+  if(fread(&(qd->bd.qd),sizeof(QPD2),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the qd. exit...\n");
+    exit(1);
+  }
+  if(fread(&(qd->bd.Nn),sizeof(int),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the Nn. exit...\n");
+    exit(1);
+  }
+  if(fread(&(qd->bd.Ne),sizeof(int),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the Ne. exit...\n");
+    exit(1);
+  }
   malloc_node(&(qd->bd)); // malloc
   malloc_elem(&(qd->bd)); // malloc
-  for(i=0;i<=qd->bd.Nn;i++) fread(qd->bd.rn[i],sizeof(double),3,fp);
-  for(i=0;i<=qd->bd.Ne;i++) fread(qd->bd.ed[i],sizeof(int),4,fp);
-  fread(&(qd->bd.NN),sizeof(int),1,fp);
-  for(i=0;i<=qd->bd.Ne;i++) fread(qd->bd.eni[i],sizeof(int),4,fp);
-  fread(qd->bd.md,sizeof(int),qd->bd.Ne+1,fp);
-  fread(qd->bd.sd,sizeof(int),qd->bd.Ne+1,fp);
-  fread(qd->bd.gd,sizeof(int),qd->bd.Ne+1,fp);
-  for(i=0;i<=qd->bd.Ne;i++) for(j=0;j<4;j++) fread(qd->bd.ren[i][j],sizeof(double),3,fp);
-  for(i=0;i<=qd->bd.Ne;i++) for(j=0;j<4;j++) fread(qd->bd.wen[i][j],sizeof(double),3,fp);
-  for(i=0;i<=qd->bd.Ne;i++) for(j=0;j<4;j++) fread(qd->bd. Ui[i][j],sizeof(double complex),4,fp);
-  for(i=0;i<=qd->bd.Ne;i++) for(j=0;j<4;j++) fread(qd->bd.dUi[i][j],sizeof(double complex),4,fp);
+  for(i=0;i<=qd->bd.Nn;i++){
+    if(fread(qd->bd.rn[i],sizeof(double),3,fp)!=3){
+      printf("d3qd2_setup.c, dat_read(), failed to read the rn[i]. exit...\n");
+      exit(1);
+    }
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    if(fread(qd->bd.ed[i],sizeof(int),4,fp)!=4){
+      printf("d3qd2_setup.c, dat_read(), failed to read the ed[i]. exit...\n");
+      exit(1);
+    }
+  }
+  if(fread(&(qd->bd.NN),sizeof(int),1,fp)!=1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the NN. exit...\n");
+    exit(1);
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    if(fread(qd->bd.eni[i],sizeof(int),4,fp)!=4){
+      printf("d3qd2_setup.c, dat_read(), failed to read the eni[i]. exit...\n");
+      exit(1);
+    }
+  }
+  if(fread(qd->bd.md,sizeof(int),qd->bd.Ne+1,fp)!=qd->bd.Ne+1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the md. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->bd.sd,sizeof(int),qd->bd.Ne+1,fp)!=qd->bd.Ne+1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the sd. exit...\n");
+    exit(1);
+  }
+  if(fread(qd->bd.gd,sizeof(int),qd->bd.Ne+1,fp)!=qd->bd.Ne+1){
+    printf("d3qd2_setup.c, dat_read(), failed to read the gd. exit...\n");
+    exit(1);
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    for(j=0;j<4;j++){
+      if(fread(qd->bd.ren[i][j],sizeof(double),3,fp)!=3){
+        printf("d3qd2_setup.c, dat_read(), failed to read the ren[i][j]. exit...\n");
+        exit(1);
+      }
+    }
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    for(j=0;j<4;j++){
+      if(fread(qd->bd.wen[i][j],sizeof(double),3,fp)!=3){
+        printf("d3qd2_setup.c, dat_read(), failed to read the wen[i][j]. exit...\n");
+        exit(1);
+      }
+    }
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    for(j=0;j<4;j++){
+      if(fread(qd->bd. Ui[i][j],sizeof(double complex),4,fp)!=4){
+        printf("d3qd2_setup.c, dat_read(), failed to read the Ui[i][j]. exit...\n");
+        exit(1);
+      }
+    }
+  }
+  for(i=0;i<=qd->bd.Ne;i++){
+    for(j=0;j<4;j++){
+      if(fread(qd->bd.dUi[i][j],sizeof(double complex),4,fp)!=4){
+        printf("d3qd2_setup.c, dat_read(), failed to read the dUi[i][j]. exit...\n");
+        exit(1);
+      }
+    }
+  }
   init_elem_const(&(qd->bd)); // setup
   // sub domain data
   malloc_sub_domain(qd); // malloc
   for(d=0;d<=qd->MN;d++){
-    fread(&tmp,sizeof(int),1,fp);
-    fread(qd->bd.sb[d].sid,sizeof(int),qd->bd.sb[d].Ne+1,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d]. U[i][j],sizeof(double complex),4,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d].dU[i][j],sizeof(double complex),4,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d]. E[i][j],sizeof(double complex),3,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d].dE[i][j],sizeof(double complex),3,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d]. H[i][j],sizeof(double complex),3,fp);
-    for(i=0;i<=qd->bd.sb[d].Ne;i++) for(j=0;j<4;j++) fread(qd->bd.sb[d].dH[i][j],sizeof(double complex),3,fp);
+    if(fread(&tmp,sizeof(int),1,fp)!=1){
+      printf("d3qd2_setup.c, dat_read(), failed to read the tmp. exit...\n");
+      exit(1);
+    }
+    if(fread(qd->bd.sb[d].sid,sizeof(int),qd->bd.sb[d].Ne+1,fp)!=qd->bd.sb[d].Ne+1){
+      printf("d3qd2_setup.c, dat_read(), failed to read the sb[d]. exit...\n");
+      exit(1);
+    }
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d]. U[i][j],sizeof(double complex),4,fp)!=4){
+          printf("d3qd2_setup.c, dat_read(), failed to read the U[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d].dU[i][j],sizeof(double complex),4,fp)!=4){
+          printf("d3qd2_setup.c, dat_read(), failed to read the dU[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d]. E[i][j],sizeof(double complex),3,fp)!=3){
+          printf("d3qd2_setup.c, dat_read(), failed to read the E[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d].dE[i][j],sizeof(double complex),3,fp)!=3){
+          printf("d3qd2_setup.c, dat_read(), failed to read the dE[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d]. H[i][j],sizeof(double complex),3,fp)!=3){
+          printf("d3qd2_setup.c, dat_read(), failed to read the H[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }  
+    for(i=0;i<=qd->bd.sb[d].Ne;i++){
+      for(j=0;j<4;j++){
+        if(fread(qd->bd.sb[d].dH[i][j],sizeof(double complex),3,fp)!=3){
+          printf("d3qd2_setup.c, dat_read(), failed to read the dH[i][j]. exit...\n");
+          exit(1);
+        }
+      }
+    }
   }
 
   fclose(fp);
@@ -367,17 +515,19 @@ void output_node_particles(char *fname,DQD2 *qd)
 {
   FILE *fp;
   int s1,s2,i,j;
-  char *sd,fo[128]="";
+  char *sd,fo[256]={},tf[200]={};
 
-  sd=strrchr(fname,'.');
-  if(sd==NULL){ // no file extension
-    sprintf(fo,"%s.particles",fname);
+  s1=strlen(fname);
+  if(s1>200){
+    printf("d3qd2_setup.c, output_node_particles(), file name is too long. exit...\n");
+    exit(1);
   }
-  else {
-    s1=strlen(fname);
+  sprintf(fo,"%s",fname);
+  sd=strrchr(fo,'.');
+  if(sd!=NULL){
     s2=strlen(sd);
-    strncpy(fo,fname,s1-s2);
-    sprintf(fo,"%s.particles",fo);
+    strncpy(tf,fname,s1-s2);
+    sprintf(fo,"%s.particles",tf);
   }
   
   if((fp=fopen(fo,"wt"))==NULL){    printf("Can not open the %s file.\n",fo);    exit(1);  }
@@ -407,17 +557,35 @@ void filename_chk(int argc,char **argv)
 void read_periodicity_data(char *ped_fn,DQD2 *qd)
 {
   FILE *fp;
-  char buf[255]="";
+  char buf[256]="";
   double td0,td1;
   int ti;
 
   if((fp=fopen(ped_fn,"rt"))==NULL){    printf("Can not open the '%s' file. Exit...\n",ped_fn);    exit(1);  }
   strcpy(qd->ped_fn,ped_fn);
-  fgets(buf,256,fp);
-  fgets(buf,256,fp);
-  fscanf(fp,"%d\n",&ti); qd->bd.ps=ti;
-  fscanf(fp,"%lf %lf",&td0,&td1); qd->bd.qd.vd1[0]=td0; qd->bd.qd.vd1[1]=td1;
-  fscanf(fp,"%lf %lf",&td0,&td1); qd->bd.qd.vd2[0]=td0; qd->bd.qd.vd2[1]=td1;
+  if(fgets(buf,256,fp)==NULL){
+    printf("d3qd2_setup.c, read_periodicity_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("d3qd2_setup.c, read_periodicity_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%d\n",&ti)!=1){
+    printf("d3qd2_setup.c, read_periodicity_data(), failed to read the ps. exit...\n");
+    exit(1);
+  }
+  qd->bd.ps=ti;
+  if(fscanf(fp,"%lf %lf",&td0,&td1)!=2){
+    printf("d3qd2_setup.c, read_periodicity_data(), failed to read the vd1. exit...\n");
+    exit(1);
+  }
+  qd->bd.qd.vd1[0]=td0; qd->bd.qd.vd1[1]=td1;
+  if(fscanf(fp,"%lf %lf",&td0,&td1)!=2){
+    printf("d3qd2_setup.c, read_periodicity_data(), failed to read the vd2. exit...\n");
+    exit(1);
+  }
+  qd->bd.qd.vd2[0]=td0; qd->bd.qd.vd2[1]=td1;
 }
 
 void print_periodicity_data(DQD2 *qd)
@@ -447,16 +615,36 @@ void read_medium_data(char *med_fn,DQD2 *qd)
 
   if((fp=fopen(med_fn,"rt"))==NULL){    printf("Can not open the '%s' file. Exit...\n",med_fn);    exit(1);  }
   strcpy(qd->med_fn,med_fn);
-  fgets(buf,256,fp);
-  fgets(buf,256,fp);
-  fscanf(fp,"%d\n",&ti);  qd->MN=ti;
+  if(fgets(buf,256,fp)==NULL){
+    printf("d3qd2_setup.c, read_medium_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("d3qd2_setup.c, read_medium_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%d\n",&ti)!=1){
+    printf("d3qd2_setup.c, read_medium_data(), failed to read the MN. exit...\n");
+    exit(1);
+  }
+  qd->MN=ti;
 
   qd->n=(double complex *)m_alloc2(qd->MN+1,sizeof(double complex),"read_medium_data(), qd->n");
   qd->kn=(double complex *)m_alloc2(qd->MN+1,sizeof(double complex),"read_medium_data(),qd->kn");
-  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("d3qd2_setup.c, read_medium_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
   for(i=1;i<=qd->MN;i++){
-    fscanf(fp,"%lf",&td);
-    fscanf(fp,"%lf",&td2); qd->n[i]=td+td2*I;
+    if(fscanf(fp,"%lf",&td)!=1){
+      printf("d3qd2_setup.c, read_medium_data(), failed to read the real(n). exit...\n");
+      exit(1);
+    }
+    if(fscanf(fp,"%lf",&td2)!=1){
+      printf("d3qd2_setup.c, read_medium_data(), failed to read the imag(n). exit...\n");
+      exit(1);
+    }
+    qd->n[i]=td+td2*I;
   }
   fclose(fp);
 }
@@ -471,132 +659,218 @@ void print_medium_data(DQD2 *qd)
   }
 }
 
-void read_mesh_data(char *msh_fn,DQD2 *qd)
+void read_mesh_data(char *msh_fn,DQD2 *md)
 {
-  void malloc_node(BOUD *bd);
+    void malloc_node(BOUD *bd);
   void malloc_elem(BOUD *bd);
-
+  
   FILE *fp;
   char buf[256]="";
   double td;
   int ti,i,j,ti2,etype,tmpi,nc;
 
   if((fp=fopen(msh_fn,"rt"))==NULL){    printf("Can not open the '%s' file. Exit...\n",msh_fn);    exit(1);  }
-  strcpy(qd->msh_fn,msh_fn);
-  fgets(buf,256,fp);
-  fscanf(fp,"%lf",&td);
+  strcpy(md->msh_fn,msh_fn);
+  if(fgets(buf,256,fp)==NULL){
+    printf("setup.c, read_mesh_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fscanf(fp,"%lf",&td)!=1){
+    printf("setup.c, read_mesh_data(), failed to read the msh version. exit...\n");
+    exit(1);
+  }
   // check file version
   if(td<MSHVER){
     printf("This program supports mesh file version %g later. Reading file version is %g. Exit...\n",MSHVER,td);
     fclose(fp);
     exit(1);
   }
-  fscanf(fp,"%d",&ti);
+  if(fscanf(fp,"%d",&ti)!=1){
+    printf("setup.c, read_mesh_data(), failed to read the msh formant. exit...\n");
+    exit(1);
+  }
   //check data format
   if(ti!=MSHASCI){
     printf("This program supports 'ASCII' data format mesh file. Exit...\n");
     fclose(fp);
     exit(1);
   }
-  fscanf(fp,"%d\n",&ti);
+  if(fscanf(fp,"%d\n",&ti)!=1){
+    printf("setup.c, read_mesh_data(), failed to read the data precision. exit...\n");
+    exit(1);
+  }
   //check data precision
   if(ti!=MSHPREC){
     printf("This program supports double precision mesh data. Exit...\n");
     fclose(fp);
     exit(1);
   }
-  fgets(buf,256,fp);
-  fgets(buf,256,fp);
-
-  fscanf(fp,"%d\n",&ti); 
-  qd->bd.Nn=ti;
-  malloc_node(&(qd->bd));
-  for(i=1;i<=qd->bd.Nn;i++){
-    fscanf(fp,"%d",&ti);    if(ti!=i)       printf("bad id %d\n",ti);
-    fscanf(fp,"%lf",&td);    qd->bd.rn[i][0]=td;
-    fscanf(fp,"%lf",&td);    qd->bd.rn[i][1]=td;
-    fscanf(fp,"%lf\n",&td); qd->bd.rn[i][2]=td;
+  if(fgets(buf,256,fp)==NULL){
+    printf("setup.c, read_mesh_data(), failed to read the line. exit...\n");
+    exit(1);
   }
-  fgets(buf,256,fp);
-  fgets(buf,256,fp);
+  if(fgets(buf,256,fp)==NULL){
+    printf("setup.c, read_mesh_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
 
-  fscanf(fp,"%d",&ti);
-  qd->bd.Ne=ti/2; 
-  malloc_elem(&(qd->bd));
+  if(fscanf(fp,"%d\n",&ti)!=1){
+    printf("setup.c, read_mesh_data(), failed to read the Nn. exit...\n");
+    exit(1);
+  } 
+  md->bd.Nn=ti;
+  malloc_node(&(md->bd));
+  for(i=1;i<=md->bd.Nn;i++){
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the id. exit...\n");
+      exit(1);
+    }
+    if(ti!=i)       printf("bad id %d\n",ti);
+    if(fscanf(fp,"%lf",&td)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the rn[i][0]. exit...\n");
+      exit(1);
+    }
+    md->bd.rn[i][0]=td;
+    if(fscanf(fp,"%lf",&td)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the rn[i][1]. exit...\n");
+      exit(1);
+    }
+    md->bd.rn[i][1]=td;
+    if(fscanf(fp,"%lf\n",&td)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the rn[i][2]. exit...\n");
+      exit(1);
+    }
+    md->bd.rn[i][2]=td;
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("setup.c, read_mesh_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+  if(fgets(buf,256,fp)==NULL){
+    printf("setup.c, read_mesh_data(), failed to read the line. exit...\n");
+    exit(1);
+  }
+
+  if(fscanf(fp,"%d",&ti)!=1){
+    printf("setup.c, read_mesh_data(), failed to read the Ne. exit...\n");
+    exit(1);
+  }
+  md->bd.Ne=ti/2; 
+  malloc_elem(&(md->bd));
 
   nc=0;
-  for(i=1;i<=qd->bd.Ne;i++){
+  for(i=1;i<=md->bd.Ne;i++){
     // element id
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the id. exit...\n");
+      exit(1);
+    }
     if(ti!=i*2-1){
       printf("bad id :%d. Exit...\n",ti);
       exit(1);
     }
     // element type
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the type. exit...\n");
+      exit(1);
+    }
     etype=ti;
     if(ti!=ELT3 && ti!=ELT4){
       printf("bad element type. element type must be %d or %d. Exit...\n",ELT3,ELT4);
       exit(1);
     }
     // number of tags
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the number of tags. exit...\n");
+      exit(1);
+    }
     for(j=0;j<ti;j++){
-      fscanf(fp,"%d",&ti2);
+      if(fscanf(fp,"%d",&ti2)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the physical entity. exit...\n");
+        exit(1);
+      }
       if(j==0){ // domain id ( gmsh physical entity)
         if(ti2==OPENDID) ti2=0;
-        if(qd->MN>=ti2) qd->bd.md[i]=ti2;
+        if(md->MN>=ti2) md->bd.md[i]=ti2;
         else {
           printf("domain id %d is not defined medium data. check domain and medium data. exit..\n",ti2);
           exit(1);
         }
       }
       else if(j==1){ // group id ( elementary geometrical entity )
-        qd->bd.gd[i]=ti2;
+        md->bd.gd[i]=ti2;
       }
     }
     // node id
-    fscanf(fp,"%d",&ti);  qd->bd.ed[i][0]=ti;
-    fscanf(fp,"%d",&ti);  qd->bd.ed[i][1]=ti;
-    fscanf(fp,"%d",&ti);  qd->bd.ed[i][2]=ti;
-    if(etype==ELT3) qd->bd.ed[i][3]=0;
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the ed[i][0]. exit...\n");
+      exit(1);
+    }
+    md->bd.ed[i][0]=ti;
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the ed[i][1]. exit...\n");
+      exit(1);
+    }
+    md->bd.ed[i][1]=ti;
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the ed[i][2]. exit...\n");
+      exit(1);
+    }
+    md->bd.ed[i][2]=ti;
+    if(etype==ELT3) md->bd.ed[i][3]=0;
     else {
-      fscanf(fp,"%d",&ti);  qd->bd.ed[i][3]=ti;
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][3]. exit...\n");
+        exit(1);
+      }
+      md->bd.ed[i][3]=ti;
     }
     // element node id
     if(etype==ELT3){
-      qd->bd.eni[i][0]=nc++;
-      qd->bd.eni[i][1]=nc++;
-      qd->bd.eni[i][2]=nc++;
-      qd->bd.eni[i][3]=-1;
+      md->bd.eni[i][0]=nc++;
+      md->bd.eni[i][1]=nc++;
+      md->bd.eni[i][2]=nc++;
+      md->bd.eni[i][3]=-1;
     }
     else {
-      qd->bd.eni[i][0]=nc++;
-      qd->bd.eni[i][1]=nc++;
-      qd->bd.eni[i][2]=nc++;
-      qd->bd.eni[i][3]=nc++;
+      md->bd.eni[i][0]=nc++;
+      md->bd.eni[i][1]=nc++;
+      md->bd.eni[i][2]=nc++;
+      md->bd.eni[i][3]=nc++;
     }
 
     // element id
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the element id. exit...\n");
+      exit(1);
+    }
     if(ti!=i*2){
       printf("bad id :%d. Exit...\n",ti);
       exit(1);
     }
     // element type
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the element type. exit...\n");
+      exit(1);
+    }
     etype=ti;
     if(ti!=ELT3 && ti!=ELT4){
       printf("bad element type. element type must be %d or %d. Exit...\n",ELT3,ELT4);
       exit(1);
     }
     // number of tags
-    fscanf(fp,"%d",&ti);
+    if(fscanf(fp,"%d",&ti)!=1){
+      printf("setup.c, read_mesh_data(), failed to read the number of tags. exit...\n");
+      exit(1);
+    }
     for(j=0;j<ti;j++){
-      fscanf(fp,"%d",&ti2);
+      if(fscanf(fp,"%d",&ti2)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the domain id. exit...\n");
+        exit(1);
+      }
       if(j==0){ // domain id
         if(ti2==OPENDID) ti2=0;
-        if(qd->MN>=ti2) qd->bd.sd[i]=ti2;
+        if(md->MN>=ti2) md->bd.sd[i]=ti2;
         else {
           printf("domain id %d is not defined medium data. check domain and medium data! exit..\n",ti2);
           exit(1);
@@ -605,62 +879,83 @@ void read_mesh_data(char *msh_fn,DQD2 *qd)
     }
     // check node id
     if(etype==ELT3){
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][0]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][0]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][0]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][2]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][1]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][2]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][1]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][2]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][1]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
     }
     else {
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][0]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][0]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][0]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][3]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][1]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][3]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][2]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][2]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][2]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
-      fscanf(fp,"%d",&ti);
-      if(qd->bd.ed[i][1]!=ti){
+      if(fscanf(fp,"%d",&ti)!=1){
+        printf("setup.c, read_mesh_data(), failed to read the ed[i][3]. exit...\n");
+        exit(1);
+      }
+      if(md->bd.ed[i][1]!=ti){
         printf("node id miss matched. check element id %d. Exit...\n",i*2);
         exit(1);
       }
     }
     // exchange open region domain to main domain
-    if(qd->bd.sd[i]==0){
-      qd->bd.sd[i]=qd->bd.md[i];
-      qd->bd.md[i]=0;
+    if(md->bd.sd[i]==0){
+      md->bd.sd[i]=md->bd.md[i];
+      md->bd.md[i]=0;
       if(etype==ELT3){
-        tmpi=qd->bd.ed[i][1];
-        qd->bd.ed[i][1]=qd->bd.ed[i][2];
-        qd->bd.ed[i][2]=tmpi;
+        tmpi=md->bd.ed[i][1];
+        md->bd.ed[i][1]=md->bd.ed[i][2];
+        md->bd.ed[i][2]=tmpi;
       }
       else {
-        tmpi=qd->bd.ed[i][3];
-        qd->bd.ed[i][3]=qd->bd.ed[i][1];
-        qd->bd.ed[i][1]=tmpi;
+        tmpi=md->bd.ed[i][3];
+        md->bd.ed[i][3]=md->bd.ed[i][1];
+        md->bd.ed[i][1]=tmpi;
       }
     }
   }
   fclose(fp);
-  qd->bd.NN=nc;
+  md->bd.NN=nc;
 }
 
 void print_mesh_data(DQD2 *qd)
